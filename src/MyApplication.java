@@ -6,7 +6,7 @@ import java.util.Set;
 @ApplicationPath("resources")
 public class MyApplication extends Application {
     public Set<Class<?>> getClasses() {
-        Set<Class<?>> s = new HashSet<Class<?>>();
+        Set<Class<?>> s = new HashSet<>();
         s.add(MonitoringApi.class);
         return s;
     }

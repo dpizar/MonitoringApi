@@ -1,0 +1,7 @@
+.idea
+out
+.project
+.classpath
+*.iml
+lib/*.jar
+web
