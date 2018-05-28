@@ -5,3 +5,4 @@ out
 *.iml
 lib/*.jar
 web
+META-INF
