@@ -7,28 +7,30 @@ import java.util.Map;
 public class MonitoringApi {
     private static Map<String,Monitor> urlBeingMonitored = new HashMap<>();
 
-    @GET
-    @Path("/start/{interval}/{url}")
+    @POST
+    @Path("/start")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String start(@PathParam("interval") Integer interval, @PathParam("url") String url){
-        String message = "Start monitoring " + url + " URL, with "+ interval + " interval";
-        Monitor monitor = new Monitor(interval,url);
-        this.urlBeingMonitored.put(url, monitor);
+    public String start(RequestBodyStartMonitoring request_body){
+        String message = "Start monitoring " + request_body.url + " URL, with "+ request_body.interval + " interval";
+        Monitor monitor = new Monitor(request_body.interval,request_body.url);
+        this.urlBeingMonitored.put(request_body.url, monitor);
         monitor.start();
         return message;
 
     }
 
-    @GET
-    @Path("/stop/{url}")
+    @POST
+    @Path("/stop")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String stop(@PathParam("url") String url){
-        if (this.urlBeingMonitored.containsKey(url)){
-            Monitor monitor = this.urlBeingMonitored.get(url);
+    public String stop(RequestBodyStopMonitoring request_body){
+        if (this.urlBeingMonitored.containsKey(request_body.url)){
+            Monitor monitor = this.urlBeingMonitored.get(request_body.url);
             monitor.stop();
-            return "Stop monitoring " + url + " URL";
+            return "Stop monitoring " + request_body.url + " URL";
         }
-        return url +" has not been monitoring before.";
+        return request_body.url +" has not been monitoring before.";
     }
 
     @GET

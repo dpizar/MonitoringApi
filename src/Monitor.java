@@ -16,7 +16,7 @@ public class Monitor extends MonitorScheduler {
 
     public Monitor(int interval, String url){
         super(interval);
-        this.url = "http://" + url;
+        this.url = url;
         this.report = new HashMap<>();
     }
 
